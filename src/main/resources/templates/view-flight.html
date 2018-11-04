@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>View Flight</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>	
+</head>
+
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+   	
+   	<h2 th:each="flight : ${flightList}">
+   		<div class="container-fluid">
+   		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header" th:text="'Flight Number: ' + ${flight.flightNumber}">
+					</div>
+					<div class="card-body">
+						<p class="card-text" th:text="'Origin: ' + ${flight.origin}"></p>
+						<p class="card-text" th:text="'Destination: ' + ${flight.destination}"></p>
+						<p class="card-text" th:text="'Time: ' + ${flight.time}"></p>
+						<p class="card-text" th:text="'Nama Pilot: ' + ${flight.pilot.getName()}"></p>
+						<p class="card-text" th:text="'License Pilot: ' + ${flight.pilot.getLicenseNumber()}"></p>
+						<a class="btn btn-primary" th:href="@{'/flight/update/' + ${flight.id}}">Update this Flight</a>
+						<form th:action="@{'/flight/delete/' + ${flight.id}}" method="POST">
+							<button class="btn btn-primary" type="submit">Delete this flight</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>	      		
+      </h2>   	
+      
+      <!-- <h3 th:each="flight : ${flightList}">
+         <span th:text="'Flight Number: ' + ${flight.flightNumber}"></span><br>
+         <span th:text="'Origin: ' + ${flight.origin}"></span><br>
+         <span th:text="'Destination: ' + ${flight.destination}"></span><br>
+         <span th:text="'Time: ' + ${flight.time}"></span><br>
+         <span th:text="'Nama Pilot: ' + ${flight.pilot.getName()}"></span><br>
+         <span th:text="'License Pilot: ' + ${flight.pilot.getLicenseNumber()}"></span>
+         <span>
+         		<br>
+         		<a th:href="@{'/flight/update/' + ${flight.id}}"><button>Update this flight</button></a>
+         		<form th:action="@{'/flight/delete/' + ${flight.id}}" method="POST">
+					<button type="submit">Delete this flight</button>
+				</form>
+         	</span> 	      		
+      </h3>   -->	
+	
+</body>
+</html>
