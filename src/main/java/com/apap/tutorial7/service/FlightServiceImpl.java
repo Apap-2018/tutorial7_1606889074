@@ -1,41 +1,67 @@
 package com.apap.tutorial7.service;
 
-import com.apap.tutorial7.model.FlightModel;
-import com.apap.tutorial7.repository.FlightDB;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * FlightServiceImpl
- */
+import com.apap.tutorial7.model.FlightModel;
+import com.apap.tutorial7.repository.FlightDB;
+
 @Service
 @Transactional
-public class FlightServiceImpl implements FlightService {
+public class FlightServiceImpl implements FlightService{
 	@Autowired
-	private FlightDB flightDb;
+	private FlightDB flightDB;
 	
 	@Override
-	public void addFlight(FlightModel flight) {
-		flightDb.save(flight);
-	}
-	
-	@Override
-	public void deleteFlight(FlightModel flight) {
-		flightDb.delete(flight);
+	public FlightModel addFlight(FlightModel flight) {
+		return flightDB.save(flight);
 	}
 
 	@Override
-	public FlightModel getFlightDetailById(long id) {
-		return flightDb.findById(id);
+	public void deleteFlightById(Long id) {
+		flightDB.deleteById(id);
+	}
+	
+	@Override
+	public FlightModel getFlightDetailById (Long id){
+		return flightDB.getOne(id);
+	}
+
+	@Override
+	public List<FlightModel> getFlightList() {
+		return flightDB.findAll();
+	}
+
+	@Override
+	public Optional<FlightModel> getFlightDetailByFlightNumber(String flightNumber) {
+		Optional<FlightModel> flight = flightDB.findByFlightNumber(flightNumber);
+		return flight;
+	}
+
+	@Override
+	public Optional<FlightModel> getFlightById(long flightId) {
+		return flightDB.findById(flightId);
+	}
+
+	@Override
+	public void updateFlight(FlightModel flight) {
+		flightDB.save(flight);
+		
 	}
 
 	@Override
 	public List<FlightModel> getAllFlight() {
-		
-		return flightDb.findAll();
+		return flightDB.findAll();
 	}
+
+	@Override
+	public void deleteFlight(FlightModel flight) {
+		flightDB.delete(flight);
+	}
+	
 }

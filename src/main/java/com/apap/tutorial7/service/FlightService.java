@@ -1,18 +1,32 @@
 package com.apap.tutorial7.service;
 
+
 import java.util.List;
+import java.util.Optional;
 
 import com.apap.tutorial7.model.FlightModel;
 
 /**
+ * 
  * FlightService
+ *
  */
 public interface FlightService {
-	void addFlight(FlightModel flight);
+	FlightModel getFlightDetailById (Long id);
 	
-	void deleteFlight(FlightModel flight);
+	Optional<FlightModel> getFlightDetailByFlightNumber (String flightNumber);
 	
-	FlightModel getFlightDetailById(long id);
+	FlightModel addFlight(FlightModel flight);
 	
+	void deleteFlightById(Long id);
+	
+	List<FlightModel> getFlightList();
+
+	Optional<FlightModel> getFlightById(long flightId);
+
+	void updateFlight(FlightModel flight);
+
 	List<FlightModel> getAllFlight();
+
+	void deleteFlight(FlightModel flight);
 }
